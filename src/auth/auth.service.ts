@@ -22,20 +22,24 @@ export class AuthService {
     const existedUser = await this.userRepository.findOne({
       email: registrationDto.email,
     });
+    
     if (existedUser) {
       throw new NotAcceptableException();
     }
 
     const password = await bcrypt.hash(registrationDto.password, 5);
+    
     const user = await this.userRepository.save({
       ...registrationDto,
       password,
     });
+    
     return user;
   }
 
   public async login(loginDto: LoginDto): Promise<object> {
     const user = await this.checkUser(loginDto);
+    
     return this.generateToken(user);
   }
 
@@ -43,15 +47,19 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       email: loginDto.email,
     });
+
     const password = await bcrypt.compare(loginDto.password, user.password);
+
     if (user && password) {
       return user;
     }
+
     throw new UnauthorizedException();
   }
 
   private async generateToken(user: User): Promise<object> {
     const payload = { email: user.email, name: user.name };
+
     return {
       token: this.jwtService.sign(payload),
     };
