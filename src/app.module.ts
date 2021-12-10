@@ -6,11 +6,19 @@ import { User } from './users/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/categories.entity';
+import { ArticlesModule } from './articles/articles.module';
+import { Article } from './articles/articles.entity';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.env`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'storage'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,12 +27,14 @@ import { Category } from './categories/categories.entity';
       username: 'postgres',
       password: 'root',
       database: 'test',
-      entities: [User, Category],
+      entities: [User, Category, Article],
       synchronize: true,
     }),
     UsersModule,
     AuthModule,
     CategoriesModule,
+    ArticlesModule,
+    FilesModule,
   ],
 })
 export class AppModule {}
