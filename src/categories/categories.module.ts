@@ -4,6 +4,7 @@ import { CategoriesService } from './categories.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './categories.entity';
 import { AuthModule } from '../auth/auth.module';
+import { Article } from '../articles/articles.entity';
 // import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -11,7 +12,7 @@ import { AuthModule } from '../auth/auth.module';
   providers: [CategoriesService],
   imports: [
     AuthModule,
-    TypeOrmModule.forFeature([Category]),
+    TypeOrmModule.forFeature([Category, Article]),
     // JwtModule.register({}),
   ],
 })

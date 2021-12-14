@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -23,5 +25,10 @@ export class ArticlesController {
   @UseInterceptors(FileInterceptor('file'))
   public create(@Body() articleDto: ArticleDto, @UploadedFile() file) {
     return this.articleService.create(articleDto, file);
+  }
+
+  @Delete('/delete/:id')
+  public delete(@Param('id') id: number) {
+    return this.articleService.delete(id);
   }
 }

@@ -9,8 +9,11 @@ import { Category } from './categories/categories.entity';
 import { ArticlesModule } from './articles/articles.module';
 import { Article } from './articles/articles.entity';
 import { FilesModule } from './files/files.module';
+import { resolve } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
+import { RolesModule } from './roles/roles.module';
+import { Role } from './roles/roles.entity';
+import { ArticleMigration1639478225708 } from './migration/1639478225708-ArticleMigration';
 
 @Module({
   imports: [
@@ -18,7 +21,7 @@ import * as path from 'path';
       envFilePath: `.env`,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'storage'),
+      rootPath: resolve(__dirname, 'storage'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -27,14 +30,14 @@ import * as path from 'path';
       username: 'postgres',
       password: 'root',
       database: 'test',
-      entities: [User, Category, Article],
-      synchronize: true,
+      entities: [User, Category, Article, Role],
     }),
     UsersModule,
     AuthModule,
     CategoriesModule,
     ArticlesModule,
     FilesModule,
+    RolesModule,
   ],
 })
 export class AppModule {}

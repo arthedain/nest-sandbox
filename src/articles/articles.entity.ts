@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Category } from '../categories/categories.entity';
 
-@Entity()
+@Entity({ database: 'articles' })
 export class Article {
   @PrimaryGeneratedColumn()
   id: number;
@@ -16,6 +18,9 @@ export class Article {
 
   @Column()
   image: string;
+
+  @ManyToOne((type) => Category, (category) => category.articles)
+  category: Category;
 
   @CreateDateColumn({
     type: 'timestamp',
