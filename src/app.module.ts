@@ -13,7 +13,7 @@ import { resolve } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.entity';
-import { ArticleMigration1639478225708 } from './migration/1639478225708-ArticleMigration';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -31,6 +31,12 @@ import { ArticleMigration1639478225708 } from './migration/1639478225708-Article
       password: 'root',
       database: 'test',
       entities: [User, Category, Article, Role],
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: 'redis_nest',
+        port: 6379,
+      },
     }),
     UsersModule,
     AuthModule,

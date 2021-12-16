@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Category } from '../categories/categories.entity';
 
-@Entity({ database: 'articles' })
+@Entity({ name: 'articles' })
 export class Article {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,14 +24,11 @@ export class Article {
 
   @CreateDateColumn({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   updatedAt: Date;
 }

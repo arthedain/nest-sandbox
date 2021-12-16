@@ -9,6 +9,7 @@ export class CategoriesMigration1639461098799 implements MigrationInterface {
           name: 'id',
           type: 'int',
           isPrimary: true,
+          isGenerated: true,
         },
         {
           name: 'name',

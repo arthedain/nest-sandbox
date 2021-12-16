@@ -9,6 +9,7 @@ export class RolesMigration1639484010234 implements MigrationInterface {
           name: 'id',
           type: 'int',
           isPrimary: true,
+          isGenerated: true,
         },
         {
           name: 'name',

@@ -18,13 +18,12 @@ export class UsersService {
 
     const role = await this.roleRepository.findOne(userDto.roleId);
 
-    const user = await this.userRepository.save({
-      ...userDto,
+    return await this.userRepository.save({
+      name: userDto.name,
+      email: userDto.email,
       role,
       password,
     });
-
-    return user;
   }
 
   public async all(): Promise<User[]> {

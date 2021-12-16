@@ -5,15 +5,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './categories.entity';
 import { AuthModule } from '../auth/auth.module';
 import { Article } from '../articles/articles.entity';
-// import { JwtModule } from '@nestjs/jwt';
+import { BullModule } from '@nestjs/bull';
+import { CategoryProcessor } from './category.processor';
 
 @Module({
   controllers: [CategoriesController],
-  providers: [CategoriesService],
+  providers: [CategoriesService, CategoryProcessor],
   imports: [
     AuthModule,
     TypeOrmModule.forFeature([Category, Article]),
-    // JwtModule.register({}),
+    BullModule.registerQueue({
+      name: 'category',
+    }),
   ],
 })
 export class CategoriesModule {}

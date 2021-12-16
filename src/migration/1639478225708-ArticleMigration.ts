@@ -14,9 +14,14 @@ export class ArticleMigration1639478225708 implements MigrationInterface {
           name: 'id',
           type: 'int',
           isPrimary: true,
+          isGenerated: true,
         },
         {
           name: 'name',
+          type: 'varchar',
+        },
+        {
+          name: 'image',
           type: 'varchar',
         },
         {
