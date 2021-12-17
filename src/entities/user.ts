@@ -2,22 +2,28 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../users/user.entity';
+import { Role } from './roles';
 
-@Entity({ name: 'roles' })
-export class Role {
+@Entity({ name: 'users' })
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true })
+  email: string;
+
+  @Column()
   name: string;
 
-  @OneToMany((type) => User, (user) => user.role)
-  users: User[];
+  @Column()
+  password: string;
+
+  @ManyToOne((type) => Role, (role) => role.users)
+  role: Role;
 
   @CreateDateColumn({
     type: 'timestamp',

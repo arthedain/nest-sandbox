@@ -6,18 +6,18 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Article } from '../articles/articles.entity';
+import { User } from './user';
 
-@Entity({ name: 'categories' })
-export class Category {
+@Entity({ name: 'roles' })
+export class Role {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
-  @OneToMany((type) => Article, (article) => article.category)
-  articles: Article[];
+  @OneToMany((type) => User, (user) => user.role)
+  users: User[];
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -2,25 +2,22 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Category } from '../categories/categories.entity';
+import { Article } from './article';
 
-@Entity({ name: 'articles' })
-export class Article {
+@Entity({ name: 'categories' })
+export class Category {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @Column()
-  image: string;
-
-  @ManyToOne((type) => Category, (category) => category.articles)
-  category: Category;
+  @OneToMany((type) => Article, (article) => article.category)
+  articles: Article[];
 
   @CreateDateColumn({
     type: 'timestamp',

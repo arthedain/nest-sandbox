@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from './categories.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Category } from './categories.entity';
+import { Category } from '../entities/category';
 import { AuthModule } from '../auth/auth.module';
-import { Article } from '../articles/articles.entity';
+import { Article } from '../entities/article';
 import { BullModule } from '@nestjs/bull';
 import { CategoryProcessor } from './category.processor';
 
